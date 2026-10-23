@@ -20,6 +20,6 @@ Mission Hero — интерактивное браузерное приключ�
 - Запуск локально: открой репозиторий через статический HTTP-сервер (например, `python3 -m http.server 8000`) и перейди на `http://localhost:8000`.
 - Проверки: `npm test`.
 - Сборка: `npm run build`.
-- Ожидаемый адрес Pages (только после успешного workflow): https://hosttik.github.io/mission_hero/
+- **Опубликованная версия 0.1.0:** [Открыть Mission Hero](https://hosttik.github.io/mission_hero/). Проверена в браузере; [успешный workflow](https://github.com/Hosttik/mission_hero/actions/runs/39978719309).
 
 Прототип пока **не готов к самостоятельному тестированию детьми**: голосовые команды не реализованы; список ограничений — в `CHANGELOG.md`.
