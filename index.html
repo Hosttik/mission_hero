@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050e23"><meta name="description" content="Mission Hero — a room-sized space adventure for kids and families">
+<title>Mission Hero · Space Academy</title>
+<style>
+:root{color-scheme:dark;--bg:#061024;--navy:#101c38;--line:rgba(121,207,255,.26);--cyan:#72e8ff;--mint:#74f6c8;--text:#e9f6ff;--muted:#99b5d0;--gold:#ffcb79}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+body{overflow-x:hidden}button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+button:disabled{opacity:.48;cursor:not-allowed}.hidden{display:none!important}
+#app{min-height:100dvh;display:flex;flex-direction:column;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 47% -10%,#163c66 0%,transparent 50%),#040c1f}
+#app:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 41px,rgba(83,153,236,.025) 42px),repeating-linear-gradient(90deg,transparent 0 64px,rgba(83,153,236,.025) 65px);pointer-events:none;z-index:-1}
+header{height:70px;padding:10px clamp(13px,3vw,40px);display:flex;align-items:center;gap:22px;background:rgba(6,17,39,.85);border-bottom:1px solid var(--line);position:relative;z-index:2}
+.brand-mark{display:grid;place-items:center;width:47px;height:47px;border:2px solid #78e6ff;border-radius:15px;transform:rotate(-8deg);box-shadow:0 0 21px rgba(72,211,246,.2);font-size:26px;color:#baf9ff}
+.brand{font-weight:900;letter-spacing:.13em;line-height:1.05;font-size:clamp(16px,1.8vw,23px)}.brand small{display:block;color:#77b5d4;font-size:9px;letter-spacing:.32em;margin-top:5px}
+.header-location{flex:1;text-align:center;letter-spacing:.1em;color:var(--cyan);font-size:clamp(12px,1.1vw,16px);text-transform:uppercase}
+.top-actions{display:flex;gap:8px}.small-btn{border:1px solid var(--line);background:#142542c9;min-width:45px;height:44px;border-radius:12px;padding:0 14px;font-size:12px;font-weight:800}
+.small-btn:hover{background:#1e4269}
+.viewport-grid{display:grid;grid-template-columns:minmax(190px,240px) minmax(0,1fr) minmax(200px,250px);gap:14px;flex:1;min-height:340px;padding:15px clamp(13px,3vw,40px)}
+.glass{background:linear-gradient(155deg,rgba(24,51,84,.82),rgba(10,25,51,.74));border:1px solid var(--line);box-shadow:inset 0 1px rgba(255,255,255,.045),0 14px 40px rgba(0,0,0,.14);border-radius:18px}
+.side{padding:18px 17px;display:flex;flex-direction:column;gap:23px}
+.eyebrow{font-size:10px;letter-spacing:.21em;text-transform:uppercase;color:#7daac9;font-weight:900}
+.side h2{font-size:15px;margin:5px 0 0;letter-spacing:.04em}.meter{display:flex;flex-direction:column;gap:8px}
+.meter-head{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:800}
+.meter-head span:last-child{color:var(--muted)}
+.track{height:10px;border-radius:20px;overflow:hidden;background:#101d35;border:1px solid #30455f}
+.fill{height:100%;width:70%;border-radius:20px;background:linear-gradient(90deg,#16c9b7,#82f8c4);box-shadow:0 0 18px #25e4c366;transition:width .5s,background .5s}
+.fill.warn{background:linear-gradient(90deg,#df7e4e,#f6cf72)}.fill.danger{background:linear-gradient(90deg,#ee545b,#fc8d80)}
+.side-foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--line);color:#92abc9;font-size:12px;line-height:1.65}
+.side-foot b{color:#d5faff}.badge{display:inline-block;padding:5px 9px;border:1px solid #58d4c18f;border-radius:50px;color:#a8ffe7;font-size:10px;font-weight:900;letter-spacing:.08em}
+.window{position:relative;min-height:330px;overflow:hidden;border-radius:27px;background:radial-gradient(ellipse at 50% 45%,#153c67 0%,#092145 32%,#06132b 62%,#030918 100%);box-shadow:inset 0 0 0 7px #1d354e,inset 0 0 0 9px #365d7b,0 13px 35px #0005}
+.window:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgba(163,234,255,.08),transparent 35%),linear-gradient(0deg,#060e21f2 0%,transparent 20%);border-radius:inherit}
+#stars{position:absolute;inset:0;overflow:hidden}.star{position:absolute;width:2px;height:2px;border-radius:100%;background:white;box-shadow:0 0 8px #9bdaff;animation:twinkle 3s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.22;transform:scale(.7)}to{opacity:1;transform:scale(1.3)}}
+.planet-glow{position:absolute;width:clamp(125px,18vw,280px);height:clamp(125px,18vw,280px);border-radius:50%;left:50%;top:45%;transform:translate(-50%,-50%);background:radial-gradient(circle at 30% 28%,#b4f8ff 0%,#74bfd8 12%,#315f99 32%,#11284e 62%,#081429 100%);box-shadow:0 0 48px #26bfff55,0 0 125px #579bff22,inset -25px -17px 45px #0007;transition:background .6s}
+.planet-glow:after{content:"";position:absolute;inset:-12%;border:1px solid rgba(127,201,242,.2);border-radius:50%;transform:rotateX(69deg) rotate(-18deg)}
+#app[data-location="asteroids"] .planet-glow{background:radial-gradient(circle at 29% 29%,#feeab4,#bd8357 25%,#654959 54%,#171c38 83%);box-shadow:0 0 65px #fbb06f54}
+#app[data-location="nebula"] .planet-glow{background:radial-gradient(circle at 32% 30%,#fbd9ff,#bb9bf5 26%,#5c448d 56%,#1b1e55 85%);box-shadow:0 0 80px #c28bfa70}
+#app[data-location="planet"] .planet-glow{background:radial-gradient(circle at 30% 26%,#d8ffdb,#6ac7b2 27%,#287e98 58%,#122c4d 84%);box-shadow:0 0 70px #7ce9a366}
+.hud-reticle{position:absolute;inset:16% 25%;border:1px solid #8de8ff44;border-radius:50%;box-shadow:0 0 0 30px #65d8ff0c;pointer-events:none}
+.hud-reticle:before,.hud-reticle:after{content:"";position:absolute;background:#a7f5ff44}
+.hud-reticle:before{width:1px;height:130%;left:50%;top:-15%}.hud-reticle:after{height:1px;width:130%;left:-15%;top:50%}
+.hud-label{position:absolute;z-index:2;font-size:10px;letter-spacing:.2em;color:#9aeefe;background:#061c3499;border:1px solid #65d8ff47;border-radius:7px;padding:8px 10px;text-transform:uppercase}
+.hud-label.top{top:25px;left:24px}.hud-label.bottom{bottom:24px;right:25px}
+.horizon{position:absolute;z-index:2;bottom:0;left:0;right:0;height:54px;background:linear-gradient(0deg,#11233d,#183654cc);clip-path:polygon(0% 35%,17% 0%,83% 0%,100% 35%,100% 100%,0% 100%);border-top:1px solid #7399b277}
+.comms{flex:1;gap:16px}.comms-content{font-size:15px;line-height:1.6;margin:0;color:#d9f4ff}.comms-icon{font-size:37px;color:var(--cyan)}
+.log-box{margin-top:auto;padding:13px;border:1px dashed #6cbbd64b;border-radius:12px;background:#00182d59;color:#90bed5;font-size:12px;line-height:1.55}
+.deck{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 clamp(13px,3vw,40px) 16px}
+.system{min-height:117px;border-radius:17px;border:1px solid #52789a;background:linear-gradient(145deg,#1c3e61,#0b213e);display:flex;align-items:center;text-align:left;gap:16px;padding:17px;transition:transform .15s,background .15s;box-shadow:inset 0 1px #ffffff1d,0 7px 0 #061225}
+.system:hover{background:linear-gradient(145deg,#275578,#103051);transform:translateY(-2px)}.system:active{transform:translateY(3px);box-shadow:inset 0 1px #ffffff1d,0 3px 0 #061225}
+.system-icon{display:grid;place-items:center;font-size:clamp(24px,2.4vw,39px);background:#0b1c36;border:1px solid #4686a67c;border-radius:15px;width:63px;height:63px;flex-shrink:0;color:var(--cyan)}
+.system-title{display:block;font-weight:950;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(12px,1.1vw,16px)}.system-desc{display:block;margin-top:7px;color:#a8c1d9;font-size:11px;line-height:1.35}
+#message{position:absolute;z-index:4;left:50%;bottom:155px;transform:translateX(-50%);background:#071d37e8;border:1px solid #67ddec80;box-shadow:0 8px 30px #0009;border-radius:50px;padding:10px 20px;text-align:center;font-size:13px;max-width:min(90%,560px);pointer-events:none}
+#overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:18px;background:#020b1ee8;backdrop-filter:blur(9px);overflow:auto}
+.modal{width:min(620px,100%);max-height:94dvh;overflow-y:auto;border:1px solid #77dbf579;background:linear-gradient(145deg,#1b3b5c,#08172f 68%);border-radius:25px;padding:clamp(18px,4vw,34px);box-shadow:0 35px 100px #000a,inset 0 1px #fff2}
+.modal.center{text-align:center}.modal h1{font-size:clamp(26px,4.5vw,42px);margin:8px 0 12px;letter-spacing:.02em;line-height:1.1}.modal p{color:#c2daeb;line-height:1.55;margin:10px 0 17px}.modal-icon{font-size:64px;line-height:1.2;text-shadow:0 0 40px #71e5ff75}
+.options{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.pill{padding:11px 17px;min-height:46px;border-radius:12px;background:#173553;border:1px solid #527c99;font-weight:850}.pill.active{background:#22547a;border-color:#77e7fa;color:white;box-shadow:inset 0 0 0 1px #5cdfff}
+.primary{width:100%;min-height:57px;border-radius:14px;border:1px solid #a6fcf2;background:linear-gradient(125deg,#35cfdf,#43d1ab);color:#052038;font-size:16px;font-weight:950;box-shadow:0 9px 26px #12c9d03e}
+.secondary{min-height:49px;border:1px solid #7196b9;background:#163251;border-radius:13px;padding:11px 20px;font-weight:800}.modal-actions{display:flex;gap:10px;margin-top:20px}.modal-actions>*{flex:1}
+.destinations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}.destination{display:flex;align-items:center;gap:12px;text-align:left;padding:19px 13px;border:1px solid #4b819c;background:#122c4a;border-radius:15px;min-height:80px}.destination b{display:block;font-size:14px}.destination small{display:block;margin-top:4px;color:#9ac2d6}.destination .d-icon{font-size:28px}.destination.current{border-color:#72e9ef;box-shadow:inset 0 0 0 1px #72e9ef}.destination:disabled{opacity:.55}
+.task-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}.task-choice .pill{width:100%}.task-text{padding:17px;border:1px solid #5ca9bc77;border-radius:14px;background:#0a2941;line-height:1.55;margin-top:12px}
+.footer{display:flex;justify-content:space-between;padding:0 clamp(13px,3vw,40px) 11px;font-size:10px;letter-spacing:.13em;color:#607b99}
+#rotate{display:none;position:fixed;z-index:30;inset:0;background:#061329;color:#dffaff;text-align:center;place-items:center;padding:20px;font-size:19px;font-weight:900}
+@media(max-width:1050px){.viewport-grid{grid-template-columns:190px minmax(0,1fr)}.comms{display:none}.system{gap:10px;padding:11px}.system-icon{width:48px;height:48px}}
+@media(max-width:730px){header{height:52px;padding:6px 12px;gap:9px}.brand-mark{width:37px;height:37px;font-size:22px;border-radius:10px}.brand{font-size:14px}.brand small{font-size:7px;margin-top:3px}.header-location{font-size:10px;letter-spacing:.02em}.small-btn{height:38px;min-width:38px;padding:0 9px}.viewport-grid{display:block;min-height:0;flex:1;padding:6px 10px}.side{display:none}.window{min-height:190px;height:100%;border-radius:18px}.planet-glow{width:150px;height:150px}.hud-label{font-size:8px;padding:5px}.hud-label.top{top:16px;left:17px}.hud-label.bottom{bottom:18px;right:17px}.deck{gap:6px;margin:0 10px 12px}.system{min-height:76px;display:flex;flex-direction:column;text-align:center;justify-content:center;gap:3px;border-radius:12px;padding:6px}.system-icon{height:30px;width:30px;border-radius:9px;font-size:19px}.system-title{font-size:9px}.system-desc{display:none}.footer{display:none}#message{bottom:100px;font-size:11px}.modal{max-height:95dvh;padding:18px}.modal-icon{font-size:39px}.modal h1{font-size:24px}.modal p{font-size:13px}.destinations{gap:7px}.destination{padding:10px 8px;min-height:60px}.destination b{font-size:11px}.destination small{font-size:9px}}
+@media(orientation:portrait) and (max-width:840px){#rotate{display:grid}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<div id="app" data-location="home">
+<header>
+<div class="brand-mark" aria-hidden="true">✦</div>
+<div class="brand">MISSION HERO<small>SPACE ACADEMY</small></div>
+<div id="location-label" class="header-location">HOME ORBIT</div>
+<div class="top-actions"><button class="small-btn" id="language" data-action="language" aria-label="Switch language">EN</button><button class="small-btn" id="sound" data-action="sound" aria-label="Toggle sound">♫</button><button class="small-btn" data-action="pause" aria-label="Pause">Ⅱ</button></div>
+</header>
+<main class="viewport-grid">
+<aside class="glass side"><div><div class="eyebrow" id="systems-caption">SHIP STATUS</div><h2 id="systems-heading">All systems ready</h2></div>
+<div class="meter"><div class="meter-head"><span id="energy-caption">⚡ ENERGY</span><span id="energy-value">83%</span></div><div class="track"><div id="energy-meter" class="fill"></div></div></div>
+<div class="meter"><div class="meter-head"><span id="hull-caption">◈ HULL</span><span id="hull-value">94%</span></div><div class="track"><div id="hull-meter" class="fill"></div></div></div>
+<div class="meter"><div class="meter-head"><span id="shield-caption">◎ SHIELDS</span><span id="shield-value">74%</span></div><div class="track"><div id="shield-meter" class="fill"></div></div></div>
+<div class="side-foot"><span class="badge" id="status-badge">● ONLINE</span><p id="help-line">Captain, the universe is waiting for you.</p></div></aside>
+<section class="window" aria-label="Spaceship observation window"><div id="stars" aria-hidden="true"></div><div class="hud-reticle" aria-hidden="true"></div><div class="planet-glow" aria-hidden="true"></div><div class="hud-label top" id="hud-label">SECTOR 01 / READY</div><div class="hud-label bottom" id="hud-scan">SCANS / 00</div><div class="horizon" aria-hidden="true"></div></section>
+<aside class="glass side comms"><div class="eyebrow" id="captain-log">CAPTAIN'S LOG</div><div class="comms-icon">✧</div><h2 id="log-title">Adventure awaits!</h2><p id="log-message" class="comms-content">Choose a destination or scan the sky.</p><div class="log-box" id="log-meta">Your room is part of this adventure. Make space to move safely.</div><button class="secondary" id="signal-btn" data-action="signal">✦ Incoming signal</button></aside>
+</main>
+<nav class="deck" aria-label="Ship controls">
+<button class="system" data-action="nav"><span class="system-icon">⌖</span><span><span class="system-title" id="nav-name">Navigation</span><span class="system-desc" id="nav-desc">Choose a destination</span></span></button>
+<button class="system" data-action="recharge"><span class="system-icon">ϟ</span><span><span class="system-title" id="power-name">Reactor</span><span class="system-desc" id="power-desc">Charge the ship</span></span></button>
+<button class="system" data-action="scan"><span class="system-icon">◎</span><span><span class="system-title" id="scan-name">Scanner</span><span class="system-desc" id="scan-desc">Find a surprise</span></span></button>
+<button class="system" data-action="shields"><span class="system-icon">⬡</span><span><span class="system-title" id="shield-name">Shields</span><span class="system-desc" id="shield-desc">Activate protection</span></span></button>
+</nav>
+<div class="footer"><span id="mode-caption">MISSION HERO · FREE EXPLORATION</span><span id="version-label">VERSION …</span></div>
+<div id="message" class="hidden" role="status" aria-live="polite"></div>
+</div>
+<div id="overlay" aria-live="polite"></div>
+<div id="rotate"><div>↻<p id="rotate-copy">Поверни устройство горизонтально, капитан!</p></div></div>
+<script type="module" src="./app.js"></script></body></html>

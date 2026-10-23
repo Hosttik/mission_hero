@@ -1,0 +1,12 @@
+{
+  "name": "mission-hero",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build": "node scripts/build.mjs",
+    "check-release": "node scripts/check-release.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
