@@ -36,7 +36,7 @@ export function reduceGame(s,a){
   if(!s||s.schema!==1)throw new Error('Invalid game state');
   if(s.status==='paused'&&!['RESUME','LANG'].includes(a.type))return s;
   if(s.status==='complete'&&!['LANG'].includes(a.type))return s;
-  if(s.activeEvent&&!['VARIANT','RESOLVE','PAUSE','LANG'].includes(a.type))return s;
+  if(s.activeEvent&&!['VARIANT','RESOLVE','PAUSE','LANG','TICK'].includes(a.type))return s;
   switch(a.type){
     case 'SCAN': return s.energy<6?s:{...meters(s,{energy:-6}),scans:s.scans+1};
     case 'RECHARGE': return meters(s,{energy:17,shield:-3});
