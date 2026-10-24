@@ -1,0 +1,15 @@
+# Generated application output and dependencies
+dist/
+node_modules/
+
+# Local credentials and Relay runtime state
+.env
+.env.*
+!.env.example
+*.local
+.agent-relay/
+.agentworkforce/relay/
+.relay/
+
+# OS metadata
+.DS_Store

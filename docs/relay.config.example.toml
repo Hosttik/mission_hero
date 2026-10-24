@@ -1,0 +1,17 @@
+# Inactive proposal. Read RELAY_SETUP.md before copying any block.
+# Use Node >=22 on the Codex process PATH. Supply the key outside Git.
+[mcp_servers.agent-relay]
+command = "npx"
+args = ["-y", "agent-relay@14.0.0", "mcp"]
+enabled = false
+required = false
+startup_timeout_sec = 30
+env_vars = ["RELAY_WORKSPACE_KEY"]
+enabled_tools = ["register_agent", "list_agents", "list_channels", "create_channel", "join_channel", "post_message", "list_messages", "check_inbox"]
+
+[mcp_servers.agent-relay.env]
+RELAY_BASE_URL = "https://cast.agentrelay.com"
+RELAY_AGENT_NAME = "mission-hero-codex"
+RELAY_AGENT_TYPE = "agent"
+RELAY_SKIP_BOOTSTRAP = "1"
+AGENT_RELAY_TELEMETRY_DISABLED = "1"
