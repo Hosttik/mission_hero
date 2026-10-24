@@ -18,6 +18,7 @@ const TEXT = {
   finishContinue:'СВОБОДНЫЙ ПОЛЁТ',charged:'Энергия пополнена!',scanned:'Сканирование завершено',arrived:'Мы на месте!',
   noEnergy:'Мало энергии. Заряди реактор!',shieldOn:'Защитные щиты включены',shieldOff:'Щиты в режиме ожидания',
   completed:'Миссия выполнена!',skipped:'Ничего страшного. Летим дальше!',locked:'Сначала заверши активную миссию.',
+  emergency:'Аварийная посадка! Спасательная команда вернула нас домой. Корабль отремонтирован.',
  },
  en:{
   status:'SHIP STATUS',ready:'All systems ready!',energy:'⚡ ENERGY',hull:'◈ HULL',shield:'◎ SHIELDS',online:'● ONLINE',
@@ -35,6 +36,7 @@ const TEXT = {
   finishContinue:'FREE FLIGHT',charged:'Energy recharged!',scanned:'Scan complete',arrived:'We have arrived!',
   noEnergy:'Low energy. Recharge the reactor!',shieldOn:'Shields are online',shieldOff:'Shields in standby',
   completed:'Mission complete!',skipped:'No problem. Let’s keep exploring!',locked:'Finish the current mission first.',
+  emergency:'Emergency landing! The rescue crew brought us home and repaired the ship.',
  }
 };
 let game = null;
@@ -125,7 +127,9 @@ document.addEventListener('click',event=>{
   if(action==='back'){screen='play';render();return;}
   if(action==='nav'){if(game.activeEvent)return toast(t('locked'));screen='nav';render();return;}
   if(action==='travel'){
-    const old=game.location;dispatch({type:'TRAVEL',to:btn.dataset.to});screen='play';render();toast(old===game.location?t('noEnergy'):t('arrived'));return;
+    const old=game.location,landings=game.emergencyLandings;
+    dispatch({type:'TRAVEL',to:btn.dataset.to});screen='play';render();
+    toast(game.emergencyLandings>landings?t('emergency'):old===game.location?t('noEnergy'):t('arrived'));return;
   }
   if(action==='recharge'){dispatch({type:'RECHARGE'});toast(t('charged'));return;}
   if(action==='shields'){dispatch({type:'SHIELDS'});toast(game.shieldsOn?t('shieldOn'):t('shieldOff'));return;}
@@ -137,5 +141,5 @@ document.addEventListener('click',event=>{
   if(action==='variant'){dispatch({type:'VARIANT',value:btn.dataset.variant});render();return;}
   if(action==='done'||action==='skip'){dispatch({type:'RESOLVE',done:action==='done'});screen='play';render();toast(t(action==='done'?'completed':'skipped'));return;}
 });
-stars();render();fetch('./VERSION').then(r=>r.ok?r.text():Promise.reject()).then(v=>{$('#version-label').textContent='VERSION '+v.trim();}).catch(()=>{$('#version-label').textContent='VERSION 0.1.0';});
+stars();render();fetch('./VERSION').then(r=>r.ok?r.text():Promise.reject()).then(v=>{$('#version-label').textContent='VERSION '+v.trim();}).catch(()=>{$('#version-label').textContent='VERSION 0.2.0';});
 setInterval(()=>{if(game?.status==='playing'){dispatch({type:'TICK',ms:1000});if(game.status==='complete'){screen='finish';render();}}},1000);
