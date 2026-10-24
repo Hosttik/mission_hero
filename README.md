@@ -15,13 +15,13 @@ Mission Hero — интерактивное браузерное приключ�
 
 ## Версии и деплой
 
-Первая игровая версия: **0.1.0**. [Порядок выпуска](docs/RELEASES.md) требует повышать `VERSION`, синхронно менять `package.json` и фиксировать изменения в `CHANGELOG.md` при каждой новой публикации. GitHub Pages публикуется из `main` через GitHub Actions; код без изменения версии на сайт не попадёт.
+Текущая игровая версия: **0.2.0**. [Порядок выпуска](docs/RELEASES.md) требует повышать `VERSION`, синхронно менять `package.json` и фиксировать изменения в `CHANGELOG.md` при каждой новой публикации. GitHub Pages публикуется из `main` через GitHub Actions; код без изменения версии на сайт не попадёт.
 
 - Запуск локально: открой репозиторий через статический HTTP-сервер (например, `python3 -m http.server 8000`) и перейди на `http://localhost:8000`.
 - Node.js: минимум 20, для совпадения с CI рекомендуется 22 (в локальной среде есть 22.23.0). Установка npm-зависимостей текущему прототипу не нужна.
 - Проверки: `npm test`; `npm run check-release`.
 - Сборка: `npm run build`.
-- **Опубликованная версия 0.1.0:** [Открыть Mission Hero](https://hosttik.github.io/mission_hero/). Проверена в браузере; [успешный workflow](https://github.com/Hosttik/mission_hero/actions/runs/39978719309).
+- **Опубликованная версия 0.2.0:** [Открыть Mission Hero](https://hosttik.github.io/mission_hero/). Проверена в браузере; [успешный workflow](https://github.com/Hosttik/mission_hero/actions/runs/40085527855), [PR #2](https://github.com/Hosttik/mission_hero/pull/2).
 
 Прототип пока **не готов к самостоятельному тестированию детьми**: голосовые команды не реализованы; список ограничений — в `CHANGELOG.md`.
 
